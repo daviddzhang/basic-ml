@@ -11,6 +11,8 @@ sympy = "*"
 flask = "*"
 python-dotenv = "*"
 scikit-learn = "*"
+pytest = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.8"
