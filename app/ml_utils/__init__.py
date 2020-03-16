@@ -1,0 +1,1 @@
+from app.ml_utils.data import generate_data

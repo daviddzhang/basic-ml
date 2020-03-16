@@ -11,42 +11,23 @@ SAMPLE_Y_VALS = [-152.11080949672981, -76.31498830804236, -77.68375975785183, -6
 def test_generate_data_default_size(client):
     rv = client.get('/api/linreg/generate')
     json_res = rv.get_json()
-    training = json_res["train"]
-    cv = json_res["cv"]
 
-    assert len(training) == DEFAULT_NUMEXAMPLES
-    assert len(cv) == DEFAULT_NUMEXAMPLES / 2
+    assert len(json_res) == DEFAULT_NUMEXAMPLES
 
 
 def test_generate_data_custom_size(client):
     rv = client.get('/api/linreg/generate?numExamples=200')
     json_res = rv.get_json()
-    training = json_res["train"]
-    cv = json_res["cv"]
 
-    assert len(training) == 200
-    assert len(cv) == 100
+    assert len(json_res) == 200
 
 
 # hard to test whether degree works via unit tests - was done manually
 def test_generate_data_degree_no_impact(client):
     rv = client.get('/api/linreg/generate?degree=3&numExamples=200')
     json_res = rv.get_json()
-    training = json_res["train"]
-    cv = json_res["cv"]
 
-    assert len(training) == 200
-    assert len(cv) == 100
-
-
-def test_generate_data_odd_num_examples(client):
-    rv = client.get('/api/linreg/generate?degree=3&numExamples=75')
-    json_res = rv.get_json()
-    training = json_res["train"]
-    cv = json_res["cv"]
-
-    assert len(training) == 75
-    assert len(cv) == 37
+    assert len(json_res) == 200
 
 
 def test_bad_request_negative_degree(client):

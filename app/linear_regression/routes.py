@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from sklearn.linear_model import Ridge
 import numpy as np
+from app.ml_utils import generate_data
 from sklearn.preprocessing import PolynomialFeatures
 
 bp = Blueprint("lin_regression", __name__)
@@ -8,47 +9,17 @@ bp = Blueprint("lin_regression", __name__)
 DEFAULT_NUMEXAMPLES = 40
 DEFAULT_DEGREE = 2
 
-
 @bp.route('/api/linreg/generate', methods=['GET'])
-def generate_data_by_degree():
+def generate_lin_reg_data():
     degree = request.args.get('degree', default=DEFAULT_DEGREE, type=int)
     num_examples = request.args.get('numExamples', default=DEFAULT_NUMEXAMPLES, type=int)
-    if degree < 0 or num_examples < 0:
-        return "No negative parameters are allowed", 400
 
-    # generate specified num_examples, and 50% more for CV set
-    x_vals = np.random.uniform(-2, 2, int(num_examples * 1.5))
-    y_vals = _generate_y_vals(x_vals, degree)
+    try:
+        data = generate_data(num_examples, degree)
+        return jsonify(data)
+    except ValueError as e:
+        return str(e), 400
 
-    train_x = x_vals[:num_examples]
-    train_y = y_vals[:num_examples]
-
-    training = {}
-    for x, y in zip(train_x, train_y):
-        training[x] = y
-
-    cv_x = x_vals[num_examples:]
-    cv_y = y_vals[num_examples:]
-
-    cv = {}
-    for x, y in zip(cv_x, cv_y):
-        cv[x] = y
-
-    response = {"train": training, "cv": cv}
-    return jsonify(response)
-
-
-def _generate_y_vals(xVals, degree, random=np.random):
-    coefficients = random.normal(0, 6, degree)
-    res = np.zeros(xVals.size)
-    for i in range(degree):
-        res = res + coefficients[i] * np.power(xVals, i + 1)
-
-    # add some noise to data:
-    # scale noise standard deviation based on magnitude of coefficients - this is to decrease the change of
-    # too much noise getting added
-    std_dev_scale = np.sum(np.absolute(coefficients))
-    return res + random.normal(0, std_dev_scale / 2, xVals.size)
 
 
 @bp.route('/api/linreg/fit', methods=['POST'])
