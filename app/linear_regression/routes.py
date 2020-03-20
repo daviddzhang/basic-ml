@@ -1,13 +1,15 @@
 from flask import Blueprint, request, jsonify
 from sklearn.linear_model import Ridge
 import numpy as np
-from app.ml_utils import generate_data
+from app.ml_utils.data import *
 from sklearn.preprocessing import PolynomialFeatures
 
 bp = Blueprint("lin_regression", __name__)
 
 DEFAULT_NUMEXAMPLES = 40
 DEFAULT_DEGREE = 2
+
+# route for choosing pre set data in db
 
 @bp.route('/api/linreg/generate', methods=['GET'])
 def generate_lin_reg_data():
@@ -25,27 +27,20 @@ def generate_lin_reg_data():
 @bp.route('/api/linreg/fit', methods=['POST'])
 def fit_data():
     data = request.json
-    points = data.get("train")
-    num_features = data.get("num_features", 1)
-    if num_features <= 0:
-        return b"Number of features must be positive", 400
-    alpha = data.get("alpha", 1)
-    if alpha < 0:
-        return b"alpha must be non-negative", 400
-    model = Ridge(alpha=alpha)
 
-    x_vals = np.array(list(points.keys()))
-    x_vals = x_vals[:, np.newaxis]
+    try:
+        points, num_features, alpha = get_params_from_json(data)
+        model = Ridge(alpha=alpha)
 
-    y_vals = np.array(list(points.values()))
-    y_vals = y_vals[:, np.newaxis]
+        x_vals, y_vals = dictionary_to_x_y(points)
+        x_vals = PolynomialFeatures(degree=num_features).fit_transform(x_vals)
 
-    x_vals = PolynomialFeatures(degree=num_features).fit_transform(x_vals)
+        model.fit(x_vals, y_vals)
 
-    model.fit(x_vals, y_vals)
+        response = {}
 
-    response = {}
+        response["coefficients"] = model.coef_.tolist()[0]
 
-    response["coefficients"] = model.coef_.tolist()[0]
-
-    return jsonify(response)
+        return jsonify(response)
+    except ValueError as e:
+        return str(e), 400

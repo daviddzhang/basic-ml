@@ -51,7 +51,7 @@ def test_fit_default(client):
         points[x] = y
 
     payload = {}
-    payload["train"] = points
+    payload["data"] = points
 
     rv = client.post('/api/linreg/fit', data=json.dumps(payload),
                      content_type='application/json')
@@ -67,7 +67,7 @@ def test_fit_num_features(client):
         points[x] = y
 
     payload = {}
-    payload["train"] = points
+    payload["data"] = points
     payload["num_features"] = 5
 
     rv = client.post('/api/linreg/fit', data=json.dumps(payload),
@@ -84,7 +84,7 @@ def test_fit_alpha(client):
         points[x] = y
 
     payload = {}
-    payload["train"] = points
+    payload["data"] = points
     payload["num_features"] = 5
     payload["alpha"] = 10
 
@@ -102,7 +102,7 @@ def test_fit_0_alpha(client):
         points[x] = y
 
     payload = {}
-    payload["train"] = points
+    payload["data"] = points
     payload["num_features"] = 5
     payload["alpha"] = 0
 
@@ -120,7 +120,7 @@ def test_fit_bad_alpha2(client):
         points[x] = y
 
     payload = {}
-    payload["train"] = points
+    payload["data"] = points
     payload["alpha"] = -1
 
     rv = client.post('/api/linreg/fit', data=json.dumps(payload),
@@ -136,7 +136,7 @@ def test_fit_bad_num_features(client):
         points[x] = y
 
     payload = {}
-    payload["train"] = points
+    payload["data"] = points
     payload["num_features"] = 0
 
     rv = client.post('/api/linreg/fit', data=json.dumps(payload),
@@ -152,7 +152,7 @@ def test_fit_bad_num_features2(client):
         points[x] = y
 
     payload = {}
-    payload["train"] = points
+    payload["data"] = points
     payload["num_features"] = -1
 
     rv = client.post('/api/linreg/fit', data=json.dumps(payload),

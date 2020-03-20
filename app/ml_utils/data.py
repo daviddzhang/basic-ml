@@ -26,3 +26,23 @@ def _generate_y_vals(xVals, degree, random=np.random):
     std_dev_scale = np.sum(np.absolute(coefficients))
     return res + random.normal(0, std_dev_scale / 2, xVals.size)
 
+def get_params_from_json(payload):
+    points = payload.get("data")
+    num_features = payload.get("num_features", 1)
+    if num_features <= 0:
+        raise ValueError("Number of features must be positive")
+    alpha = payload.get("alpha", 1)
+    if alpha < 0:
+        raise ValueError("alpha must be non-negative")
+
+    return points, num_features, alpha
+
+
+def dictionary_to_x_y(data):
+    x_vals = np.array(list(data.keys()))
+    x_vals = x_vals[:, np.newaxis]
+
+    y_vals = np.array(list(data.values()))
+    y_vals = y_vals[:, np.newaxis]
+
+    return x_vals.astype(float), y_vals.astype(float)
