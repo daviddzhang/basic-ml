@@ -1,22 +1,47 @@
-.navBar ul{
-    padding: 0;
-    margin: 0;
-    display: flex;
-    list-style: none;
-    width: 100%;
-    background-color: #333;
-    border: 5px solid #333333;
-    
-  }
-  .navBar ul a{
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@500&display=swap");
+
+body {
+    margin: 0px;
+ }
+
+li, a {
+    font-family: "Nunito", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #434343;
     text-decoration: none;
-    color: #999;
-    display: block;
-    padding: 15px;
-    margin: 0 5px;
-    
-  }
-  .navBar ul .active, .navBar ul a:hover{
-    background: #FFF;
-    color: #222;
-  }
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 13px 2%;
+    background-color: #EEEEEE;
+    border-bottom: 2px solid #25282E;
+}
+
+.title {
+    margin-right: auto;
+    font-family: 'Red Hat Text', sans-serif;
+    font-size: 30px;
+    color: #00316F;
+}
+
+.nav__links {
+    list-style: none;
+}
+
+.nav__links li {
+    display: inline-block;
+    padding: 0px 20px
+}
+
+.title, .nav__links li a {
+    transition: all .3s ease 0s;
+}
+
+.title:hover, .nav__links li a:hover {
+    color: #91B0FF;
+}

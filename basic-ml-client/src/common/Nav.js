@@ -4,13 +4,16 @@ import './Nav.css'
 
 function Nav() {
     return (
-        <nav className="navBar">
-                <ul>
-                    <li><NavLink exact to="/">Home</NavLink></li>
+        <header>
+            <NavLink className="title" exact to="/">BasicML</NavLink>
+            <nav>
+                <ul className="nav__links">
                     <li><NavLink exact to="/graddesc">Gradient Descent</NavLink></li>
                     <li><NavLink exact to="/contact">Contact</NavLink></li>
                 </ul>
             </nav>
+        </header>
+
     )
 }
 
