@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap");
+
+
+.page-layout {
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 3px 15%;
+    
+}
+
+.page-layout__header {
+    color: #00316F;
+    font-weight: bolder;
+    text-align: center;
+    font-size: 40px;
+}
+
+.page-layout__content {
+    text-align: center;
+    font-size: 18px;
+}
