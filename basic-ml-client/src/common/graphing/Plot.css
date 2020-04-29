@@ -1,0 +1,12 @@
+svg {
+    display: block;
+    width: 100%;
+    height: 600px;
+    background: white;
+    overflow: visible;
+  }
+
+  .svg-wrapper {
+      width: 50%;
+      height: 600px;
+  }

@@ -1,0 +1,10 @@
+.gd-module {
+    display: flex;
+    justify-content: center;
+}
+
+.gd-module__forms {
+    padding-left: 5%;
+    align-self: center;
+    width: 30%;
+}
