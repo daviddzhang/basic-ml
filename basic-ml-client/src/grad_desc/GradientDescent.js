@@ -34,7 +34,7 @@ class GradientDescent extends React.Component {
       const newData = Object.assign({}, this.state.data);
       newData.points = [[this.state.model.curX, this.state.model.curY]];
       this.setState({ data: newData });
-      return this.state.model.curX.toFixed(2);
+      return this.state.model.curX.toFixed(3);
     }
   };
 
@@ -67,7 +67,7 @@ class GradientDescent extends React.Component {
               the number of iterations to 1 begin stepping through gradient descent. From there, you can change up your 
               function, play with the learning rates, and experiment to your heart's content! Note that you can zoom and drag in the plot.
               <br /> <br />
-              It's important to note that any function that this module accepts is far less complex than any real cost function you'd see 
+              It's important to mention that any function that this module accepts is far less complex than any real cost function you'd see 
               out in the field: it would be rare to find a model with only one feature. However, I do think this can help build 
               a visual picture as to what's happening on a feature-by-feature basis when using partial derivatives to perform gradient 
               descent for a model with many features. It's also helpful to see how learning rate (especially a bad learning rate), can impact
