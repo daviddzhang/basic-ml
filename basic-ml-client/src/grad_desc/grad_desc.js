@@ -30,8 +30,17 @@ class GradientDescentModel {
       this.funcString = funcString;
       this.funcExpr = math.compile(funcString);
       this.varName = allVars.size === 0 ? null : allVars.values().next().value;
-      this.derivative = math.derivative(funcString, this.varName);
+      // for some reason math.js doesn't like getting derivative of constants
+      this.derivative = allVars.size ? math.derivative(funcString, this.varName) : math.compile("0");
     }
+  }
+
+  evalFunc(x) {
+    return this.funcExpr.evaluate({ [this.varName]: x });
+  }
+
+  evalDerivative(x) {
+    return this.derivative.evaluate({ [this.varName]: x });
   }
 
   calcYBasedOnCurX() {
