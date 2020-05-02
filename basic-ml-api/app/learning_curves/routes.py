@@ -1,8 +1,9 @@
 from flask import Blueprint, request, jsonify
 from sklearn.linear_model import Ridge
 from sklearn.model_selection import learning_curve
-from app.ml_utils.data import *
 from sklearn.preprocessing import PolynomialFeatures
+
+from app.ml_utils.data import *
 
 bp = Blueprint("learning_curves", __name__)
 
@@ -17,7 +18,7 @@ def generate_learning_curve_data():
     degree = request.args.get('degree', default=DEFAULT_DEGREE, type=int)
 
     try:
-        data = generate_data(LEARNING_CURVE_NUM_EXAMPLES, degree)
+        data = generate_data_json(LEARNING_CURVE_NUM_EXAMPLES, degree)
         return jsonify(data)
     except ValueError as e:
         return str(e), 400
@@ -30,7 +31,7 @@ def create_learning_curve():
     try:
         data, num_features, alpha = get_params_from_json(payload)
 
-        x, y = dictionary_to_x_y(data)
+        x, y = point_array_to_x_y(data)
         model = Ridge(alpha)
 
         x = PolynomialFeatures(degree=num_features).fit_transform(x)

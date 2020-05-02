@@ -1,17 +1,16 @@
 import numpy as np
 
-def generate_data(num_examples, degree, random=np.random):
+def generate_data_json(num_examples, degree, random=np.random):
     if degree < 0 or num_examples < 0:
         raise ValueError("No negative parameters are allowed")
 
     x_vals = random.uniform(-2, 2, num_examples)
     y_vals = _generate_y_vals(x_vals, degree)
 
-    data = {}
-    for x, y in zip(x_vals, y_vals):
-        data[x] = y
+    data = [[x, y] for (x,y) in zip(x_vals, y_vals)]
 
-    return data
+    res = {"data": data}
+    return res
 
 
 def _generate_y_vals(xVals, degree, random=np.random):
@@ -38,11 +37,16 @@ def get_params_from_json(payload):
     return points, num_features, alpha
 
 
-def dictionary_to_x_y(data):
-    x_vals = np.array(list(data.keys()))
+def point_array_to_x_y(data):
+    data_length = len(data)
+    x_vals = np.empty(data_length, float)
+    y_vals = np.empty(data_length, float)
+
+    for i in range(len(data)):
+        x_vals[i] = data[i][0]
+        y_vals[i] = data[i][1]
+
+    y_vals = y_vals[:, np.newaxis]
     x_vals = x_vals[:, np.newaxis]
 
-    y_vals = np.array(list(data.values()))
-    y_vals = y_vals[:, np.newaxis]
-
-    return x_vals.astype(float), y_vals.astype(float)
+    return x_vals, y_vals

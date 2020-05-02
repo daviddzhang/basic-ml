@@ -25,3 +25,14 @@
   text-align: center;
   font-size: 30px;
 }
+
+.plot-form-module {
+    display: flex;
+    justify-content: center;
+}
+
+.plot-form-module__forms {
+    padding-left: 5%;
+    align-self: center;
+    width: 30%;
+}

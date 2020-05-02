@@ -4,7 +4,6 @@ import GradientDescentModel from "./grad_desc";
 import GDFunctionForm from "./GDFunctionForm";
 import GDParamForm from "./GDParamForm";
 import Plot from "../common/graphing/Plot";
-import "./GradientDescent.css";
 
 class GradientDescent extends React.Component {
   constructor(props) {
@@ -42,9 +41,9 @@ class GradientDescent extends React.Component {
     return (
       <PageLayout>
         <h1 className="page-layout__header">Gradient Descent</h1>
-        <div className="gd-module">
+        <div className="plot-form-module">
           <Plot data={this.state.data} />
-          <div className="gd-module__forms">
+          <div className="plot-form-module__forms">
             <GDFunctionForm
               onSubmit={this.funcHandleSubmit}
               submittedWithoutFunction={this.state.submittedWithoutFunction}

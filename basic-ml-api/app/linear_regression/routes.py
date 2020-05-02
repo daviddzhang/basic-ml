@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
 from sklearn.linear_model import Ridge
-import numpy as np
-from app.ml_utils.data import *
 from sklearn.preprocessing import PolynomialFeatures
+
+from app.ml_utils.data import *
 
 bp = Blueprint("lin_regression", __name__)
 
@@ -17,7 +17,7 @@ def generate_lin_reg_data():
     num_examples = request.args.get('numExamples', default=DEFAULT_NUMEXAMPLES, type=int)
 
     try:
-        data = generate_data(num_examples, degree)
+        data = generate_data_json(num_examples, degree)
         return jsonify(data)
     except ValueError as e:
         return str(e), 400
@@ -32,7 +32,7 @@ def fit_data():
         points, num_features, alpha = get_params_from_json(data)
         model = Ridge(alpha=alpha)
 
-        x_vals, y_vals = dictionary_to_x_y(points)
+        x_vals, y_vals = point_array_to_x_y(points)
         x_vals = PolynomialFeatures(degree=num_features).fit_transform(x_vals)
 
         model.fit(x_vals, y_vals)

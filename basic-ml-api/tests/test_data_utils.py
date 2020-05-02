@@ -1,19 +1,20 @@
 import pytest
+
 from app.ml_utils.data import *
 
 
 def test_generate_data_negative_degree():
     with pytest.raises(ValueError):
-        generate_data(100, -2)
+        generate_data_json(100, -2)
 
 
 def test_generate_data_negative_examples():
     with pytest.raises(ValueError):
-        generate_data(-1, 2)
+        generate_data_json(-1, 2)
 
 
 def test_generate_data_size():
-    assert len(generate_data(100, 2)) == 100
+    assert len(generate_data_json(100, 2)["data"]) == 100
 
 
 def test_get_params_default():
@@ -37,9 +38,9 @@ def test_get_params_negative_alpha():
         get_params_from_json({"data": None, "num_features": 1, "alpha": -1})
 
 
-def test_dictionary_to_x_y():
-    data = {1:4, 2:3, 3:2, 4:1}
-    x, y = dictionary_to_x_y(data)
+def test_point_array_to_x_y():
+    data = [[1,4], [2,3], [3,2], [4,1]]
+    x, y = point_array_to_x_y(data)
 
     assert np.array_equal(x, np.array([1,2,3,4]).reshape(len(data),1))
     assert np.array_equal(y, np.array([4,3,2,1]).reshape(len(data), 1))

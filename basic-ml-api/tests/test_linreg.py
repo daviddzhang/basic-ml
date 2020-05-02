@@ -1,5 +1,6 @@
-from app.linear_regression.routes import DEFAULT_NUMEXAMPLES
 from flask import json
+
+from app.linear_regression.routes import DEFAULT_NUMEXAMPLES
 
 SAMPLE_X_VALS = [-1.4690123930307815, -1.287124283110439, -1.2125632185980892, -1.194005738523089, -0.8896311703524478,
                  -0.12268708743189949, -0.03036546291118203, 0.14891200621134537, 1.7428125304256077,
@@ -12,14 +13,14 @@ def test_generate_data_default_size(client):
     rv = client.get('/api/linreg/generate')
     json_res = rv.get_json()
 
-    assert len(json_res) == DEFAULT_NUMEXAMPLES
+    assert len(json_res["data"]) == DEFAULT_NUMEXAMPLES
 
 
 def test_generate_data_custom_size(client):
     rv = client.get('/api/linreg/generate?numExamples=200')
     json_res = rv.get_json()
 
-    assert len(json_res) == 200
+    assert len(json_res["data"]) == 200
 
 
 # hard to test whether degree works via unit tests - was done manually
@@ -27,7 +28,7 @@ def test_generate_data_degree_no_impact(client):
     rv = client.get('/api/linreg/generate?degree=3&numExamples=200')
     json_res = rv.get_json()
 
-    assert len(json_res) == 200
+    assert len(json_res["data"]) == 200
 
 
 def test_bad_request_negative_degree(client):
@@ -46,9 +47,7 @@ def test_bad_request_negative_params(client):
 
 
 def test_fit_default(client):
-    points = {}
-    for x, y in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS):
-        points[x] = y
+    points = [[x, y] for (x,y) in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS)]
 
     payload = {}
     payload["data"] = points
@@ -62,9 +61,7 @@ def test_fit_default(client):
 
 
 def test_fit_num_features(client):
-    points = {}
-    for x, y in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS):
-        points[x] = y
+    points = [[x, y] for (x,y) in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS)]
 
     payload = {}
     payload["data"] = points
@@ -79,9 +76,7 @@ def test_fit_num_features(client):
 
 
 def test_fit_alpha(client):
-    points = {}
-    for x, y in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS):
-        points[x] = y
+    points = [[x, y] for (x, y) in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS)]
 
     payload = {}
     payload["data"] = points
@@ -97,9 +92,7 @@ def test_fit_alpha(client):
 
 
 def test_fit_0_alpha(client):
-    points = {}
-    for x, y in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS):
-        points[x] = y
+    points = [[x, y] for (x,y) in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS)]
 
     payload = {}
     payload["data"] = points
@@ -115,9 +108,7 @@ def test_fit_0_alpha(client):
 
 
 def test_fit_bad_alpha2(client):
-    points = {}
-    for x, y in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS):
-        points[x] = y
+    points = [[x, y] for (x,y) in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS)]
 
     payload = {}
     payload["data"] = points
@@ -131,9 +122,7 @@ def test_fit_bad_alpha2(client):
 
 
 def test_fit_bad_num_features(client):
-    points = {}
-    for x, y in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS):
-        points[x] = y
+    points = [[x, y] for (x,y) in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS)]
 
     payload = {}
     payload["data"] = points
@@ -147,9 +136,7 @@ def test_fit_bad_num_features(client):
 
 
 def test_fit_bad_num_features2(client):
-    points = {}
-    for x, y in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS):
-        points[x] = y
+    points = [[x, y] for (x,y) in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS)]
 
     payload = {}
     payload["data"] = points

@@ -1,5 +1,7 @@
 import os
+
 from dotenv import load_dotenv
+
 load_dotenv()
 
 PROD_DATABASE_URI = os.environ.get('PROD_POSTGRES_URI')

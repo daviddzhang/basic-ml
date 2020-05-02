@@ -1,7 +1,8 @@
 import pytest
 
-from app.configs import TestingConfig
 from app import create_app
+from app.configs import TestingConfig
+
 
 @pytest.fixture
 def client(scope="function"):
