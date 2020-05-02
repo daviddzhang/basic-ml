@@ -11,8 +11,6 @@ DEFAULT_DEGREE = 1
 LEARNING_CURVE_NUM_EXAMPLES = 2000
 TRAINING_SIZES = [1, 250, 500, 750, 1250, 1600]
 
-# route for choosing pre set data in db
-
 @bp.route('/api/lcurve/data', methods=['GET'])
 def generate_learning_curve_data():
     degree = request.args.get('degree', default=DEFAULT_DEGREE, type=int)

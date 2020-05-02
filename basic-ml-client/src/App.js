@@ -5,6 +5,7 @@ import NoPage from './common/404'
 import Nav from './common/Nav'
 import Contact from './basic_pages/Contact'
 import GradientDescent from './grad_desc/GradientDescent'
+import LinearRegression from "./lin_reg/LinearRegression"
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
     <Nav />
       <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/linreg" exact component={LinearRegression} />
         <Route path="/graddesc" exact component={GradientDescent} />
         <Route path="/contact" exact component={Contact} />
         <Route path="/" component={NoPage} />

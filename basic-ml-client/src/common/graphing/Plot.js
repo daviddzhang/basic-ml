@@ -34,6 +34,23 @@ function renderFunction(data, xScale, svgContent, funcLineGenerator) {
   }
 }
 
+function renderScatter(data, xScale, yScale, svgContent) {
+  if (data.scatter) {
+    const scatter = data.scatter;
+    svgContent
+      .selectAll(".scatter-point")
+      .data(scatter)
+      .join("circle")
+      .attr("class", "scatter-point")
+      .attr("fill", "black")
+      .attr("r", "3")
+      .attr("cx", (d) => xScale(d[0]))
+      .attr("cy", (d) => yScale(d[1]));
+  } else {
+    svgContent.selectAll("scatter-point").remove();
+  }
+}
+
 /**
  * Renders points that lie on a function. There is a strict dependency of this function with the existence of a line/function
  * plot. It includes an transition animation if the point is already on the screen and if it's not a zoom event triggering the
@@ -181,6 +198,8 @@ function Plot({ data, id = "plot" }) {
       .call((g) =>
         g.selectAll(".tick").attr("stroke-opacity", (d) => (d ? 0.25 : 1))
       );
+
+    renderScatter(data, xScale, yScale, svgContent);
 
     renderFunction(data, xScale.domain(), svgContent, funcLineGenerator);
 

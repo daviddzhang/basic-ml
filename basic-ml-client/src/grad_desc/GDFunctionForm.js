@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form } from "formik";
 import { TextField, SubmitButton } from "../common/form_fields";
 import * as Yup from "yup";
+import "../common/Forms.css"
 
 const GDFunctionForm = (props) => {
   return (
