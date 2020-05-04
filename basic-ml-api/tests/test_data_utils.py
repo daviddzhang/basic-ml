@@ -25,17 +25,17 @@ def test_get_params_default():
 
 def test_get_params_negative_num_features():
     with pytest.raises(ValueError):
-        get_params_from_json({"data": None, "num_features": -2, "alpha": 1})
+        get_params_from_json({"data": None, "num_features": -2, "lambda": 1})
 
 
 def test_get_params_zero_num_features():
     with pytest.raises(ValueError):
-        get_params_from_json({"data": None, "num_features": 0, "alpha": 1})
+        get_params_from_json({"data": None, "num_features": 0, "lambda": 1})
 
 
 def test_get_params_negative_alpha():
     with pytest.raises(ValueError):
-        get_params_from_json({"data": None, "num_features": 1, "alpha": -1})
+        get_params_from_json({"data": None, "num_features": 1, "lambda": -1})
 
 
 def test_point_array_to_x_y():

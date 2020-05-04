@@ -30,11 +30,11 @@ def get_params_from_json(payload):
     num_features = payload.get("num_features", 1)
     if num_features <= 0:
         raise ValueError("Number of features must be positive")
-    alpha = payload.get("alpha", 1)
-    if alpha < 0:
-        raise ValueError("alpha must be non-negative")
+    lambda_val = payload.get("lambda", 1)
+    if lambda_val < 0:
+        raise ValueError("lambda must be non-negative")
 
-    return points, num_features, alpha
+    return points, num_features, lambda_val
 
 
 def point_array_to_x_y(data):

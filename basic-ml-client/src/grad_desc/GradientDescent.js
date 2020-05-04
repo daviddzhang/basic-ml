@@ -24,6 +24,7 @@ class GradientDescent extends React.Component {
     // make sure that a model has been defined before attempting to do gradient descent
     if (this.state.model === null) {
       this.setState({ submittedWithoutFunction: true });
+      // throw exception here to avoid needing to return an x value
       throw new Error("Attempting to perform GD without model");
     } else {
       this.setState({ submittedWithoutFunction: false });

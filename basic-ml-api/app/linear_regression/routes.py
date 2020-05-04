@@ -29,8 +29,8 @@ def fit_data():
     data = request.json
 
     try:
-        points, num_features, alpha = get_params_from_json(data)
-        model = Ridge(alpha=alpha)
+        points, num_features, lambda_val = get_params_from_json(data)
+        model = Ridge(alpha=lambda_val)
 
         x_vals, y_vals = point_array_to_x_y(points)
         x_vals = PolynomialFeatures(degree=num_features).fit_transform(x_vals)

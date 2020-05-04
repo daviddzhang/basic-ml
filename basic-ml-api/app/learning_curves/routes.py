@@ -27,10 +27,10 @@ def create_learning_curve():
     payload = request.json
 
     try:
-        data, num_features, alpha = get_params_from_json(payload)
+        data, num_features, lambda_val = get_params_from_json(payload)
 
         x, y = point_array_to_x_y(data)
-        model = Ridge(alpha)
+        model = Ridge(lambda_val)
 
         x = PolynomialFeatures(degree=num_features).fit_transform(x)
 

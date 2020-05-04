@@ -39,7 +39,7 @@ def test_create_learning_curve_extra_payload_info(client):
     payload = {}
     payload["data"] = data["data"]
     payload["num_features"] = 1
-    payload["alpha"] = 2.0
+    payload["lambda"] = 2.0
 
     rv = client.post('/api/lcurve/create', data=json.dumps(payload),
                      content_type='application/json')

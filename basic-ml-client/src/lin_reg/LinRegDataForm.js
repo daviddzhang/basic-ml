@@ -31,9 +31,11 @@ const LinRegDataForm = (props) => {
         })}
         validateOnChange={false}
         enableReinitialize={true}
-        onSubmit={(values, { setErrors }) => {
+        onSubmit={(values, { setErrors, setSubmitting }) => {
           try {
+            setSubmitting(true);
             props.onSubmit(values);
+            setSubmitting(false);
           } catch (error) {
             // shouldn't happen unless there's a network error, in which case arbitrarily pick bottom field to display error
             setErrors({ numData: error.message });

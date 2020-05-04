@@ -81,7 +81,7 @@ def test_fit_alpha(client):
     payload = {}
     payload["data"] = points
     payload["num_features"] = 5
-    payload["alpha"] = 10
+    payload["lambda"] = 10
 
     rv = client.post('/api/linreg/fit', data=json.dumps(payload),
                      content_type='application/json')
@@ -91,13 +91,13 @@ def test_fit_alpha(client):
     assert len(coefficients) == 6
 
 
-def test_fit_0_alpha(client):
+def test_fit_0_lambda(client):
     points = [[x, y] for (x,y) in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS)]
 
     payload = {}
     payload["data"] = points
     payload["num_features"] = 5
-    payload["alpha"] = 0
+    payload["lambda"] = 0
 
     rv = client.post('/api/linreg/fit', data=json.dumps(payload),
                      content_type='application/json')
@@ -107,18 +107,18 @@ def test_fit_0_alpha(client):
     assert len(coefficients) == 6
 
 
-def test_fit_bad_alpha2(client):
+def test_fit_bad_lambda2(client):
     points = [[x, y] for (x,y) in zip(SAMPLE_X_VALS, SAMPLE_Y_VALS)]
 
     payload = {}
     payload["data"] = points
-    payload["alpha"] = -1
+    payload["lambda"] = -1
 
     rv = client.post('/api/linreg/fit', data=json.dumps(payload),
                      content_type='application/json')
     resp = rv.data
 
-    assert resp == b"alpha must be non-negative"
+    assert resp == b"lambda must be non-negative"
 
 
 def test_fit_bad_num_features(client):

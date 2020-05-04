@@ -1,6 +1,6 @@
 import { range } from "d3"
 
-const FUNC_SAMPLES = 100
+const FUNC_SAMPLES = 50
 
 function generatePlotData(evalFunc, xScale) {
     return createData(evalFunc, [xScale[0], xScale[1], FUNC_SAMPLES])
@@ -24,6 +24,8 @@ function createData(func, t) {
         function_pts(x, func, pts, t0, t1, dt * Math.sqrt(2));
         t0 = t1;
     }
+
+    console.log(pts)
 
     return pts
 }

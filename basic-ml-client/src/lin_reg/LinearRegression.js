@@ -2,13 +2,20 @@ import React from "react";
 import PageLayout from "../common/PageLayout";
 import Plot from "../common/graphing/Plot";
 import LinRegDataForm from "./LinRegDataForm";
+import LinRegModelForm from "./LinRegModelForm";
+import { evalCoefficients } from "../utils/ml_utils"
 import axios from "axios";
 
 class LinearRegression extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { data: {}, submittedWithoutData: false, dataError: "" };
+    this.state = {
+      data: {},
+      submittedWithoutData: false,
+      dataError: "",
+      modelError: "",
+    };
   }
 
   generateData = (values) => {
@@ -34,6 +41,33 @@ class LinearRegression extends React.Component {
       });
   };
 
+  trainModel = (values) => {
+    if (!this.state.data.scatter) {
+      this.setState({ submittedWithoutData: true });
+      return;
+    } else {
+      const numFeatures = values.numFeatures;
+      const lambda = values.lambda;
+
+      axios
+        .post("/api/linreg/fit", {
+          data: this.state.data.scatter,
+          num_features: numFeatures,
+          lambda: lambda,
+        })
+        .then((response) => {
+          const coefficients = response.data.coefficients;
+          console.log(coefficients)
+          const newData = Object.assign({}, this.state.data);
+          newData.functions = [(x) => evalCoefficients(x, coefficients)]
+          this.setState({ data: newData });
+        })
+        .catch((error) => {
+          this.setState({ modelError: error.response.data || error.message });
+        });
+    }
+  };
+
   render() {
     return (
       <PageLayout>
@@ -47,6 +81,10 @@ class LinearRegression extends React.Component {
               dataError={this.state.dataError}
             />
             <br />
+            <LinRegModelForm
+              onSubmit={this.trainModel}
+              modelError={this.state.modelError}
+            />
           </div>
         </div>
         <br />
