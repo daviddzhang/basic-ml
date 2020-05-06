@@ -3,7 +3,7 @@ import PageLayout from "../common/PageLayout";
 import Plot from "../common/graphing/Plot";
 import LinRegDataForm from "./LinRegDataForm";
 import LinRegModelForm from "./LinRegModelForm";
-import { evalCoefficients } from "../utils/ml_utils"
+import { generateCoefficientsFunc } from "../utils/ml_utils"
 import axios from "axios";
 
 class LinearRegression extends React.Component {
@@ -15,6 +15,7 @@ class LinearRegression extends React.Component {
       submittedWithoutData: false,
       dataError: "",
       modelError: "",
+      funcEval: null,
     };
   }
 
@@ -57,9 +58,9 @@ class LinearRegression extends React.Component {
         })
         .then((response) => {
           const coefficients = response.data.coefficients;
-          console.log(coefficients)
+          this.setState({funcEval: generateCoefficientsFunc(coefficients)})
           const newData = Object.assign({}, this.state.data);
-          newData.functions = [(x) => evalCoefficients(x, coefficients)]
+          newData.functions = [(x) => this.state.funcEval.evaluate({ "x" : x })]
           this.setState({ data: newData });
         })
         .catch((error) => {

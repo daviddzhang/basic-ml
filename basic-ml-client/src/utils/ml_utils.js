@@ -1,17 +1,15 @@
-import * as nj from "numjs"
+import * as math from "mathjs";
 
 /**
- * 
- * @param {number} x value of x 
+ * Returns a string representation of the function given by the coefficients.
+ *
  * @param {array of number} coefficients coefficients of function where [a, b, c] gets applied as a + bx + cx^2
  */
-function evalCoefficients(x, coefficients) {
-    const length = coefficients.length
-    const xArray = nj.array(Array(length).fill(x))
-    const expArray = nj.arange(0, length)
-    const coefficientArray = nj.array(coefficients)
+function generateCoefficientsFunc(coefficients) {
+  const nums = coefficients.map((num, index) => num + "x^" + index);
+  const res = nums.join(" + ");
 
-    return xArray.pow(expArray, false).multiply(coefficientArray, false).sum()
+  return math.compile(res);
 }
 
-export { evalCoefficients }
+export { generateCoefficientsFunc };
