@@ -30,6 +30,7 @@ const LinRegDataForm = (props) => {
             .integer("Number of data must be an integer"),
         })}
         validateOnChange={false}
+        validateOnBlur={false}
         enableReinitialize={true}
         onSubmit={(values, { setErrors, setSubmitting }) => {
           try {
@@ -48,13 +49,13 @@ const LinRegDataForm = (props) => {
             name="degree"
             type="number"
             placeholder="1"
-            hasInitialErrors={true}
           />
           <TextField
             label="# of training examples: "
             name="numData"
             type="number"
             placeholder="20"
+            hasInitialErrors={true}
           />
 
           <SubmitButton label="Generate data" />

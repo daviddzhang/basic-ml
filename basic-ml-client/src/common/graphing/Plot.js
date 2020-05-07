@@ -14,11 +14,11 @@ import useResizeObserver from "./resize_observer";
 import generatePlotData from "./function_data_gen";
 import "./Plot.css";
 
-function renderFunction(data, xScale, svgContent, funcLineGenerator) {
+function renderFunction(data, xDomain, yDomain, svgContent, funcLineGenerator) {
   if (data.functions) {
     const functions = data.functions;
     functions.forEach((func) => {
-      const lineData = generatePlotData(func, xScale);
+      const lineData = generatePlotData(func, xDomain, yDomain);
       svgContent
         .selectAll(".funcLine")
         .data([lineData])
@@ -42,8 +42,9 @@ function renderScatter(data, xScale, yScale, svgContent) {
       .data(scatter)
       .join("circle")
       .attr("class", "scatter-point")
-      .attr("fill", "black")
-      .attr("r", "3")
+      .attr("fill", "#7BC9FF")
+      .attr("r", "3.5")
+      .attr("stroke", "black")
       .attr("cx", (d) => xScale(d[0]))
       .attr("cy", (d) => yScale(d[1]));
   } else {
@@ -173,36 +174,37 @@ function Plot({ data, id = "plot" }) {
       yScale.domain(newYScale.domain());
     }
 
+    // axes
+    const xAxis = axisBottom(xScale)
+    .ticks(((width + 2) / (height + 2)) * 10)
+    .tickSize(-height);
+    
+    svg
+    .select(".x-axis")
+    .attr("transform", `translate(0, ${height})`)
+    .call(xAxis)
+    .call((g) =>
+    g.selectAll(".tick").attr("stroke-opacity", (d) => (d ? 0.25 : 1))
+    );
+    
+    const yAxis = axisLeft(yScale).ticks(10).tickSize(-width);
+    
+    svg
+    .select(".y-axis")
+    .call(yAxis)
+    .call((g) =>
+    g.selectAll(".tick").attr("stroke-opacity", (d) => (d ? 0.25 : 1))
+    );
+    
     const funcLineGenerator = line()
       .x((d) => xScale(d[0]))
       .y((d) => yScale(d[1]));
 
-    // axes
-    const xAxis = axisBottom(xScale)
-      .ticks(((width + 2) / (height + 2)) * 10)
-      .tickSize(-height);
 
-    svg
-      .select(".x-axis")
-      .attr("transform", `translate(0, ${height})`)
-      .call(xAxis)
-      .call((g) =>
-        g.selectAll(".tick").attr("stroke-opacity", (d) => (d ? 0.25 : 1))
-      );
-
-    const yAxis = axisLeft(yScale).ticks(10).tickSize(-width);
-
-    svg
-      .select(".y-axis")
-      .call(yAxis)
-      .call((g) =>
-        g.selectAll(".tick").attr("stroke-opacity", (d) => (d ? 0.25 : 1))
-      );
+    renderFunction(data, xScale.domain(), yScale.domain(), svgContent, funcLineGenerator);
 
     renderScatter(data, xScale, yScale, svgContent);
-
-    renderFunction(data, xScale.domain(), svgContent, funcLineGenerator);
-
+    
     renderPoint(
       data,
       xScale,

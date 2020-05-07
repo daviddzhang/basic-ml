@@ -10,3 +10,8 @@ svg {
       width: 50%;
       height: 600px;
   }
+
+  .content {
+      width: 100%;
+      height: 100%
+  }
