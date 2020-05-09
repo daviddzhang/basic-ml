@@ -3,7 +3,7 @@ import PageLayout from "../common/PageLayout";
 import Plot from "../common/graphing/Plot";
 import LinRegDataForm from "./LinRegDataForm";
 import LinRegModelForm from "./LinRegModelForm";
-import { generateCoefficientsFunc } from "../utils/ml_utils"
+import { generateCoefficientsFunc } from "../utils/ml_utils";
 import axios from "axios";
 
 class LinearRegression extends React.Component {
@@ -58,9 +58,9 @@ class LinearRegression extends React.Component {
         })
         .then((response) => {
           const coefficients = response.data.coefficients;
-          this.setState({funcEval: generateCoefficientsFunc(coefficients)})
+          this.setState({ funcEval: generateCoefficientsFunc(coefficients) });
           const newData = Object.assign({}, this.state.data);
-          newData.functions = [(x) => this.state.funcEval.evaluate({ "x" : x })]
+          newData.functions = [(x) => this.state.funcEval.evaluate({ x: x })];
           this.setState({ data: newData });
         })
         .catch((error) => {
@@ -91,31 +91,32 @@ class LinearRegression extends React.Component {
         <br />
         <h2 className="page-layout__small-header">Instructions</h2>
         <p className="page-layout__content">
-          Gradient descent is a core concept that deals with the "learning" part
-          of "machine learning." In this module, you can choose your own simple
-          function (<b>one variable only, no trig functions</b>) to treat as a
-          cost function and perform gradient descent on. After inputting a valid
-          function, you can choose a starting x value, learning rate, and number
-          of iterations to start performing gradient descent. The red dot that
-          appears after submitting the aforementioned parameters represents your
-          current "cost" - as you perform more iterations of gradient descent,
-          you should see your dot approaching a local/absolute minimum.
+          Linear regression is a great introduction to machine learning. In its
+          simplest form, it's something that we've most likely all seen before
+          at some point, whether from plotting spreadsheet data or taking a
+          statistics class. This module lets you generate sample data conforming
+          to some random function of the specified polynomial degree. With the
+          data generated, you can then train a regularized linear regression
+          model and see its trained parameters plotted on the graph as a
+          function. You can see the impacts that regularization, model
+          complexity, and number of training examples can have on your final
+          model in the form of variance/bias or overfitting/underfitting. These
+          ideas can be further explored in the Learning Curves module.
+          <br />
+          <b>Note</b>: The number of features field relates to generating
+          polynomial features out of our single feature to produce a non-linear
+          model. For example, if our feature is x and we select our number of
+          features to be 3, we will generate 2 new features, x^2 and x^3 to
+          capture more complexity in the data.
           <br /> <br />
           To start off, I would suggest submitting the placeholder values you
-          see in each field. After you get the red dot, increase the number of
-          iterations to 1 begin stepping through gradient descent. From there,
-          you can change up your function, play with the learning rates, and
-          experiment to your heart's content! Note that you can zoom and drag in
-          the plot.
-          <br /> <br />
-          It's important to mention that any function that this module accepts
-          is far less complex than any real cost function you'd see out in the
-          field: it would be rare to find a model with only one feature.
-          However, I do think this can help build a visual picture as to what's
-          happening on a feature-by-feature basis when using partial derivatives
-          to perform gradient descent for a model with many features. It's also
-          helpful to see how learning rate (especially a bad learning rate), can
-          impact the process.
+          see in each field. After you see your model's parameters plotted on
+          the graph, feel free to play around with the parameters! If you
+          generate data from a high degree function, you might have to zoom out
+          a bit to see all your data points. Even though the dataset used to train
+          our model is unrealistically simple, having instant visual feedback
+          on tuning parameters is a great way to develop intuition for the
+          aforementioned concepts of variance, bias, and regularization.
         </p>
       </PageLayout>
     );

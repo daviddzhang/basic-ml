@@ -2,7 +2,7 @@ import { range } from "d3"
 
 const FUNC_POINTS = 1000
 // for determining how many indices to buffer when cutting off large y values
-const INDEX_OFFSET = 8
+const INDEX_OFFSET = 4
 
 function generatePlotData(evalFunc, xDomain, yDomain) {
     return createData(evalFunc, xDomain[0], xDomain[1], yDomain[0], yDomain[1])
@@ -35,8 +35,8 @@ function getUnnecessaryIndexes(pts, low, high) {
 
     for (let i = 0; i < pts.length; ++i) {
         const curPoint = pts[i]
-        // if the current point is >= low make low index the current index - INDEX_OFFSET. Leave loop to make sure low is the first earliest possible
-        if (curPoint[1] >= low) {
+        // if the current point is in y domain make low index the current index - INDEX_OFFSET. Leave loop to make sure low is the first earliest possible
+        if (curPoint[1] >= low && curPoint[1] <= high) {
             lowIdx = Math.max(0, i - INDEX_OFFSET)
             break;
         }
@@ -44,8 +44,8 @@ function getUnnecessaryIndexes(pts, low, high) {
 
     for (let j = pts.length - 1; j >= 0; --j) {
         const curPoint = pts[j]
-        // same thing as above, but for high
-        if (curPoint[1] <= high) {
+        // same thing as above, but from the right/last
+        if (curPoint[1] >= low && curPoint[1] <= high) {
             highIdx = Math.min(j + INDEX_OFFSET, pts.length)
             break;
         }
