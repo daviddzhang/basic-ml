@@ -21,6 +21,11 @@ function Nav() {
             </NavLink>
           </li>
           <li>
+            <NavLink exact to="/lcurve">
+              Learning Curves
+            </NavLink>
+          </li>
+          <li>
             <NavLink exact to="/contact">
               Contact
             </NavLink>

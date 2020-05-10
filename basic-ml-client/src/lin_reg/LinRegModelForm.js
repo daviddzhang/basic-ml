@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form } from "formik";
 import { TextField, SubmitButton } from "../common/form_fields";
 import * as Yup from "yup";
-import "../common/Forms.css"
+import "../common/Forms.css";
 
 const LinRegModelForm = (props) => {
   return (
@@ -10,17 +10,21 @@ const LinRegModelForm = (props) => {
       <Formik
         initialValues={{
           numFeatures: "",
-          lambda: ""
+          lambda: "",
+        }}
+        initialErrors={{
+          lambda: props.modelError,
         }}
         validationSchema={Yup.object({
           numFeatures: Yup.number()
-          .required("Number of features required")
-          .positive("Must be positive")
-          .integer("Must be an integer"),
+            .required("Number of features required")
+            .positive("Must be positive")
+            .integer("Must be an integer"),
           lambda: Yup.number()
             .required("A regularization parameter is required")
-            .min(0, "Must be non-negative")
+            .min(0, "Must be non-negative"),
         })}
+        enableReinitialize={true}
         validateOnChange={false}
         onSubmit={(values, { setErrors, setSubmitting }) => {
           try {
@@ -28,7 +32,7 @@ const LinRegModelForm = (props) => {
             props.onSubmit(values);
             setSubmitting(false);
           } catch (error) {
-              // shouldn't happen unless there's a network error, in which case arbitrarily pick bottom field to display error
+            // shouldn't happen unless there's a network error, in which case arbitrarily pick bottom field to display error
             setErrors({ lambda: error.message });
           }
         }}

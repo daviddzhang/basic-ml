@@ -46,6 +46,7 @@ def create_learning_curve():
 
         response["training_score"] = train_scores_final.tolist()
         response["cv_score"] = cv_scores_final.tolist()
+        response["training_sizes"] = TRAINING_SIZES
 
         return jsonify(response)
     except ValueError as e:

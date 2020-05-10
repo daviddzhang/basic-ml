@@ -61,7 +61,7 @@ class LinearRegression extends React.Component {
           this.setState({ funcEval: generateCoefficientsFunc(coefficients) });
           const newData = Object.assign({}, this.state.data);
           newData.functions = [(x) => this.state.funcEval.evaluate({ x: x })];
-          this.setState({ data: newData });
+          this.setState({ data: newData, modelError: "" });
         })
         .catch((error) => {
           this.setState({ modelError: error.response.data || error.message });

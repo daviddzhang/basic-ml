@@ -6,6 +6,7 @@ import Nav from './common/Nav'
 import Contact from './basic_pages/Contact'
 import GradientDescent from './grad_desc/GradientDescent'
 import LinearRegression from "./lin_reg/LinearRegression"
+import LearningCurves from "./lcurves/LearningCurves"
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/linreg" exact component={LinearRegression} />
         <Route path="/graddesc" exact component={GradientDescent} />
+        <Route path="/lcurve" exact component={LearningCurves} />
         <Route path="/contact" exact component={Contact} />
         <Route path="/" component={NoPage} />
       </Switch>
