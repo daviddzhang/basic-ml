@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish="basic-ml-client/build"
+  base = "basic-ml-client"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
