@@ -3,7 +3,7 @@
   base = "basic-ml-client"
   publish="basic-ml-client/build"
 
-[[redirects]
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
