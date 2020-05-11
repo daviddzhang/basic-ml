@@ -1,7 +1,3 @@
-[build]
-  command = "npm run build"
-  base = "basic-ml-client"
-
 [[redirects]]
   from = "/*"
   to = "/index.html"
