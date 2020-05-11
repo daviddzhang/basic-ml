@@ -73,22 +73,6 @@ class LinearRegression extends React.Component {
     return (
       <PageLayout>
         <h1 className="page-layout__header">Linear Regression</h1>
-        <div className="plot-form-module">
-          <Plot data={this.state.data} />
-          <div className="plot-form-module__forms">
-            <LinRegDataForm
-              onSubmit={this.generateData}
-              submittedWithoutData={this.state.submittedWithoutData}
-              dataError={this.state.dataError}
-            />
-            <br />
-            <LinRegModelForm
-              onSubmit={this.trainModel}
-              modelError={this.state.modelError}
-            />
-          </div>
-        </div>
-        <br />
         <h2 className="page-layout__small-header">Instructions</h2>
         <p className="page-layout__content">
           Linear regression is a great introduction to machine learning. In its
@@ -118,6 +102,22 @@ class LinearRegression extends React.Component {
           on tuning parameters is a great way to develop intuition for the
           aforementioned concepts of variance, bias, and regularization.
         </p>
+        <br/>
+        <div className="plot-form-module">
+          <Plot data={this.state.data} />
+          <div className="plot-form-module__forms">
+            <LinRegDataForm
+              onSubmit={this.generateData}
+              submittedWithoutData={this.state.submittedWithoutData}
+              dataError={this.state.dataError}
+            />
+            <br />
+            <LinRegModelForm
+              onSubmit={this.trainModel}
+              modelError={this.state.modelError}
+            />
+          </div>
+        </div>
       </PageLayout>
     );
   }

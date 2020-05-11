@@ -30,7 +30,7 @@ class GradientDescent extends React.Component {
       this.setState({ submittedWithoutFunction: false });
       this.state.model.setX(values.xVal);
       this.state.model.setLearningRate(values.alpha);
-      this.state.model.applyNSteps(values.numIter);
+      setTimeout(this.state.model.applyNSteps(values.numIter), 500);
       const newData = Object.assign({}, this.state.data);
       newData.points = [[this.state.model.curX, this.state.model.curY]];
       this.setState({ data: newData });
@@ -42,6 +42,41 @@ class GradientDescent extends React.Component {
     return (
       <PageLayout>
         <h1 className="page-layout__header">Gradient Descent</h1>
+        <h2 className="page-layout__small-header">Instructions</h2>
+        <p className="page-layout__content">
+          Gradient descent is a core concept that deals with the "learning" part
+          of "machine learning." In this module, you can choose your own simple
+          function (<b>one variable only, no trig functions</b>) to treat as a
+          cost function and perform gradient descent on. After inputting a valid
+          function, you can choose a starting x value, learning rate, and number
+          of iterations to start performing gradient descent. The red dot that
+          appears after submitting the aforementioned parameters represents your
+          current "cost" - as you perform more iterations of gradient descent,
+          you should see your dot approaching a local/absolute minimum.
+          <br /> <br />
+          To start off, I would suggest submitting the placeholder values you
+          see in each field. After you get the red dot, increase the number of
+          iterations to 1 begin stepping through gradient descent. From there,
+          you can change up your function, play with the learning rates, and
+          experiment to your heart's content! Note that you can zoom and drag in
+          the plot.
+          <br /> <br />
+          It's important to mention that any function that this module accepts
+          is far less complex than any real cost function you'd see out in the
+          field: it would be rare to find a model with only one feature.
+          However, I do think this can help build a visual picture as to what's
+          happening on a feature-by-feature basis when using partial derivatives
+          to perform gradient descent for a model with many features. It's also
+          helpful to see how learning rate (especially a bad learning rate), can
+          impact the process.
+          <br /> <br />
+          <b>
+            IMPORTANT: if you try to perform a large number of iterations
+            (tens of millions), the site might not be able to handle it and
+            crash. Sorry!
+          </b>
+        </p>
+        <br/>
         <div className="plot-form-module">
           <Plot data={this.state.data} />
           <div className="plot-form-module__forms">
@@ -53,27 +88,6 @@ class GradientDescent extends React.Component {
             <GDParamForm onSubmit={this.performGD} />
           </div>
         </div>
-        <br />
-        <h2 className="page-layout__small-header">Instructions</h2>
-        <p className="page-layout__content">
-              Gradient descent is a core concept that deals with the "learning" part of "machine learning." In this module, you can choose
-              your own simple function (<b>one variable only, no trig functions</b>) to treat as a cost function and perform gradient 
-              descent on. After inputting a valid function, you can choose a starting x value, learning rate, and number of iterations to
-              start performing gradient descent. The red dot that appears after submitting the aforementioned parameters represents your 
-              current "cost" - as you perform more iterations of gradient descent, you should see your dot approaching a local/absolute 
-              minimum. 
-              <br /> <br />
-              To start off, I would suggest submitting the placeholder values you see in each field. After you get the red dot, increase 
-              the number of iterations to 1 begin stepping through gradient descent. From there, you can change up your 
-              function, play with the learning rates, and experiment to your heart's content! Note that you can zoom and drag in the plot.
-              <br /> <br />
-              It's important to mention that any function that this module accepts is far less complex than any real cost function you'd see 
-              out in the field: it would be rare to find a model with only one feature. However, I do think this can help build 
-              a visual picture as to what's happening on a feature-by-feature basis when using partial derivatives to perform gradient 
-              descent for a model with many features. It's also helpful to see how learning rate (especially a bad learning rate), can impact
-              the process.
-
-          </p>
       </PageLayout>
     );
   }

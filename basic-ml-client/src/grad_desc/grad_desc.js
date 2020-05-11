@@ -12,7 +12,6 @@ class GradientDescentModel {
 
   constructor(funcString) {
     // check for function validity
-
     const node = math.parse(funcString);
     const allVars = new Set();
     node.traverse(function (node, path, parent) {
@@ -30,8 +29,9 @@ class GradientDescentModel {
       this.funcString = funcString;
       this.funcExpr = math.compile(funcString);
       this.varName = allVars.size === 0 ? null : allVars.values().next().value;
+
       // for some reason math.js doesn't like getting derivative of constants
-      this.derivative = allVars.size ? math.derivative(funcString, this.varName) : math.compile("0");
+      this.derivative = allVars.size ? math.compile(math.derivative(funcString, this.varName).toString()) : math.compile("0");
     }
   }
 
@@ -69,7 +69,6 @@ class GradientDescentModel {
       this.curX -
       this.learningRate *
         this.derivative.evaluate({ [this.varName]: this.curX });
-    this.curY = this.calcYBasedOnCurX();
   }
 
   /**
@@ -81,6 +80,7 @@ class GradientDescentModel {
     for (let i = 0; i < n; i++) {
       this.applyStep();
     }
+    this.curY = this.calcYBasedOnCurX();
   }
 }
 

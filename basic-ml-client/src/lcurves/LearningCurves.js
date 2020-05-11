@@ -91,6 +91,27 @@ class LearningCurves extends React.Component {
     return (
       <PageLayout>
         <h1 className="page-layout__header">Learning Curves</h1>
+        <h2 className="page-layout__small-header">Instructions</h2>
+        <p className="page-layout__content">
+          Learning curves are a great tool to help analyze your machine learning
+          model. In this module, you can generate a dataset conforming to some
+          random polynomial function of the specified degree (displayed in the
+          mini plot above the input fields) and create learning curves by
+          training a linear regression model with the supplied hyperparameters.
+          The model is trained on a total of 1600 data points with the CV and training scores
+          being calculated at regular intervals from 1 training example to 1600 training examples.
+          <br />
+          <br />
+          To see high bias and an underfitted model manifest itself in learning
+          curves, generate some data belonging to a high degree polynomial.
+          However, use only one feature for your model and/or a high
+          regularization constant - you should see both CV and training scores
+          converging at a very high cost. To see high variance and an overfitted
+          model, you can keep the same data but use more features than the
+          degree of your function and a lower regularization parameter - you
+          should see the CV and training scores converging at a much lower cost.
+        </p>
+        <br/>
         <div className="plot-form-module">
           <FixedDataPlot
             data={this.state.lineData}
@@ -113,27 +134,6 @@ class LearningCurves extends React.Component {
             />
           </div>
         </div>
-        <br />
-        <h2 className="page-layout__small-header">Instructions</h2>
-        <p className="page-layout__content">
-          Learning curves are a great tool to help analyze your machine learning
-          model. In this module, you can generate a dataset conforming to some
-          random polynomial function of the specified degree (displayed in the
-          mini plot above the input fields) and create learning curves by
-          training a linear regression model with the supplied hyperparameters.
-          The model is trained on a total of 1600 data points with the CV and training scores
-          being calculated at regular intervals from 1 training example to 1600 training examples.
-          <br />
-          <br />
-          To see high bias and an underfitted model manifest itself in learning
-          curves, generate some data belonging to a high degree polynomial.
-          However, use only one feature for your model and/or a high
-          regularization constant - you should see both CV and training scores
-          converging at a very high cost. To see high variance and an overfitted
-          model, you can keep the same data but use more features than the
-          degree of your function and a lower regularization parameter - you
-          should see the CV and training scores converging at a much lower cost.
-        </p>
       </PageLayout>
     );
   }
