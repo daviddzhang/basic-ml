@@ -13,6 +13,8 @@ python-dotenv = "*"
 scikit-learn = "*"
 pytest = "*"
 matplotlib = "*"
+gunicorn = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.8"
