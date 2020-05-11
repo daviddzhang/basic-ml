@@ -23,7 +23,7 @@ class LearningCurves extends React.Component {
     const degree = values.degree;
 
     axios
-      .get("/api/lcurve/data", {
+      .get("https://basic-ml-api.herokuapp.com/api/lcurve/data", {
         params: {
           degree: degree,
         },
@@ -50,7 +50,7 @@ class LearningCurves extends React.Component {
       const lambda = values.lambda;
 
       axios
-        .post("/api/lcurve/create", {
+        .post("https://basic-ml-api.herokuapp.com/api/lcurve/create", {
           data: this.state.scatterData.scatter,
           num_features: numFeatures,
           lambda: lambda,

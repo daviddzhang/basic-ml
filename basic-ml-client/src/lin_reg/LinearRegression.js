@@ -24,7 +24,7 @@ class LinearRegression extends React.Component {
     const numData = values.numData;
 
     axios
-      .get("/api/linreg/generate", {
+      .get("https://basic-ml-api.herokuapp.com/api/linreg/generate", {
         params: {
           degree: degree,
           numExamples: numData,
@@ -51,7 +51,7 @@ class LinearRegression extends React.Component {
       const lambda = values.lambda;
 
       axios
-        .post("/api/linreg/fit", {
+        .post("https://basic-ml-api.herokuapp.com/api/linreg/fit", {
           data: this.state.data.scatter,
           num_features: numFeatures,
           lambda: lambda,
