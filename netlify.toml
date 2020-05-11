@@ -1,7 +1,7 @@
 [build]
   command = "npm run build"
   base = "basic-ml-client"
-  publish="basic-ml-client/build"
+  publish="build"
 
 [[redirects]]
   from = "/*"
