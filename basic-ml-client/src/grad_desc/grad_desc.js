@@ -10,6 +10,10 @@ class GradientDescentModel {
   varName;
   learningRate = 1.0;
 
+  /**
+   * Constructor for GDModel. Throws exception if incorrect syntax or multiple variables
+   * @param {string} funcString function expression in form of string
+   */
   constructor(funcString) {
     // check for function validity
     const node = math.parse(funcString);
@@ -35,28 +39,37 @@ class GradientDescentModel {
     }
   }
 
+  /**
+   * Evaluates and returns the function represented by this model for the given x
+   * 
+   * @param {number} x to evaluate
+   */
   evalFunc(x) {
     return this.funcExpr.evaluate({ [this.varName]: x });
   }
 
-  evalDerivative(x) {
-    return this.derivative.evaluate({ [this.varName]: x });
-  }
-
+  /**
+   * Evaluates and returns the current y value based on the current x value.
+   */
   calcYBasedOnCurX() {
-    return this.funcExpr.evaluate({ [this.varName]: this.curX });
+    return this.evalFunc(this.curX)
   }
 
   /**
    * Sets the model's x to the given value. Also sets the model's y value to match the given x.
    *
-   * @param {number} x x-value to set
+   * @param {number} x to set
    */
   setX(x) {
     this.curX = x;
     this.curY = this.calcYBasedOnCurX();
   }
 
+  /**
+   * Sets this model's learning rate for gradient descent
+   * 
+   * @param {number} alpha new learning rate
+   */
   setLearningRate(alpha) {
     this.learningRate = alpha;
   }

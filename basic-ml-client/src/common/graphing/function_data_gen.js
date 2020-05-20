@@ -4,6 +4,13 @@ const FUNC_POINTS = 1000;
 // for determining how many indices to buffer when cutting off large y values
 const INDEX_OFFSET = 4;
 
+/**
+ * Generates plot data using supplied function based on FUNC_POINTS and x and y domains.
+ * 
+ * @param {function} evalFunc function to evaluate - takes in a number and returns a number
+ * @param {Array} xDomain pair of numbers representing lower and upper x bounds
+ * @param {Array} yDomain pair of numbers representing lower and upper y bounds
+ */
 function generatePlotData(evalFunc, xDomain, yDomain) {
   return createData(evalFunc, xDomain[0], xDomain[1], yDomain[0], yDomain[1]);
 }
