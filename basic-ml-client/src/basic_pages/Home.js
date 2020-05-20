@@ -35,7 +35,7 @@ function Home() {
           IMPORTANT: Due to the way the API is deployed, it may be asleep if you
           are the first person to use the site in a while. If generating data or
           submitting a form has seemingly no effect, please give it several
-          seconds to wake up and update.
+          seconds to wake up and try again.
         </b>
       </p>
     </PageLayout>
