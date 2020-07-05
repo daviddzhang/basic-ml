@@ -97,12 +97,21 @@ class LinearRegression extends React.Component {
           see in each field. After you see your model's parameters plotted on
           the graph, feel free to play around with the parameters! If you
           generate data from a high degree function, you might have to zoom out
-          a bit to see all your data points. Even though the dataset used to train
-          our model is unrealistically simple, having instant visual feedback
-          on tuning parameters is a great way to develop intuition for the
-          aforementioned concepts of variance, bias, and regularization.
+          a bit to see all your data points. Even though the dataset used to
+          train our model is unrealistically simple, having instant visual
+          feedback on tuning parameters is a great way to develop intuition for
+          the aforementioned concepts of variance, bias, and regularization.
+          <br />
+          <br />
+          <b>
+            IMPORTANT: Due to the way the API is deployed, it may be asleep if
+            you are the first person to use the site in a while. If generating
+            data or submitting a form has seemingly no effect, please give it
+            several seconds to wake up and try again. This may require
+            refreshing the entire site.
+          </b>
         </p>
-        <br/>
+        <br />
         <div className="plot-form-module">
           <Plot data={this.state.data} />
           <div className="plot-form-module__forms">

@@ -98,8 +98,9 @@ class LearningCurves extends React.Component {
           random polynomial function of the specified degree (displayed in the
           mini plot above the input fields) and create learning curves by
           training a linear regression model with the supplied hyperparameters.
-          The model is trained on a total of 1600 data points with the CV and training scores
-          being calculated at regular intervals from 1 training example to 1600 training examples.
+          The model is trained on a total of 1600 data points with the CV and
+          training scores being calculated at regular intervals from 1 training
+          example to 1600 training examples.
           <br />
           <br />
           To see high bias and an underfitted model manifest itself in learning
@@ -110,8 +111,17 @@ class LearningCurves extends React.Component {
           model, you can keep the same data but use more features than the
           degree of your function and a lower regularization parameter - you
           should see the CV and training scores converging at a much lower cost.
+          <br />
+          <br />
+          <b>
+            IMPORTANT: Due to the way the API is deployed, it may be asleep if
+            you are the first person to use the site in a while. If generating
+            data or submitting a form has seemingly no effect, please give it
+            several seconds to wake up and try again. This may require
+            refreshing the entire site.
+          </b>
         </p>
-        <br/>
+        <br />
         <div className="plot-form-module">
           <FixedDataPlot
             data={this.state.lineData}
